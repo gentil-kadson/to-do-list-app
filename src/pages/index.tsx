@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import AddTaskIcon from "/public/assets/icons/addTaskIcon.svg";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,15 +13,17 @@ export default function Home() {
           name="search-task"
           id="search-task"
         />
-        <button className={styles.searchButton}>
-          <Image
-            className={styles.searchButtonIcon}
-            src={AddTaskIcon}
-            width={40}
-            height={40}
-            alt="Search icon"
-          />
-        </button>
+        <Link href="/add-task">
+          <button className={styles.searchButton}>
+            <Image
+              className={styles.searchButtonIcon}
+              src={AddTaskIcon}
+              width={40}
+              height={40}
+              alt="Search icon"
+            />
+          </button>
+        </Link>
       </div>
     </main>
   );

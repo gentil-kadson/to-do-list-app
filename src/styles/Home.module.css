@@ -1,7 +1,6 @@
 .main {
   max-width: 1440px;
   margin: auto;
-  height: 100%;
   padding: 2.5rem;
 
   display: flex;
@@ -24,7 +23,7 @@
   border: 0;
   border-radius: 1rem;
 
-  background-color: #202020;
+  background-color: #292828;
   color: #fff;
   font-size: 2rem;
 }
@@ -36,13 +35,10 @@
 .searchButton {
   border: 0;
   width: 7rem;
+  height: 100%;
   border-radius: 1rem;
 
   background-color: #d22b2b;
-}
-
-.searchButton:hover {
-  cursor: pointer;
 }
 
 .searchButtonIcon {

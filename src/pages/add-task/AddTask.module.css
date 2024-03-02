@@ -1,0 +1,67 @@
+.main {
+  margin: auto;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formSection {
+  border-radius: 1rem;
+  background-color: #202020;
+
+  width: fit-content;
+  height: 400px;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.input {
+  width: 24rem;
+  padding: 0.5rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 0;
+
+  font-size: 1.2rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.addTaskButton {
+  background-color: #d22b2b;
+  color: #fff;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  width: 100%;
+  padding: 1rem;
+
+  font-size: 1.2rem;
+  font-weight: bold;
+}
