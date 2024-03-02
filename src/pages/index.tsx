@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import AddTaskIcon from "/public/assets/icons/addTaskIcon.svg";
 import Link from "next/link";
+import Task from "@/components/Task";
 
 export default function Home() {
   return (
@@ -25,6 +26,9 @@ export default function Home() {
           </button>
         </Link>
       </div>
+      <Task />
+      <Task />
+      <Task />
     </main>
   );
 }
