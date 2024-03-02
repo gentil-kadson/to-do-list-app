@@ -1,0 +1,51 @@
+.main {
+  max-width: 1440px;
+  margin: auto;
+  height: 100%;
+  padding: 2.5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.searchTaskInput {
+  width: 100%;
+  padding: 1.5rem;
+  height: 1.5rem;
+
+  border: 0;
+  border-radius: 1rem;
+
+  background-color: #202020;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.searchTaskInput:focus {
+  outline: 0;
+}
+
+.searchButton {
+  border: 0;
+  width: 7rem;
+  border-radius: 1rem;
+
+  background-color: #d22b2b;
+}
+
+.searchButton:hover {
+  cursor: pointer;
+}
+
+.searchButtonIcon {
+  filter: brightness(0) saturate(100%) invert(96%) sepia(66%) saturate(0%)
+    hue-rotate(179deg) brightness(111%) contrast(100%);
+}
