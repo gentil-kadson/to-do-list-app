@@ -7,8 +7,10 @@ import api from "@/api/tasksApi";
 import { useState, useEffect } from "react";
 
 type TaskProps = {
+  id: number;
   name: string;
   due_date: string;
+  completed: boolean;
 };
 
 type HomeProps = {

@@ -1,14 +1,16 @@
 import styles from "./Task.module.css";
 import Image from "next/image";
-import CalendarIcon from "/public/assets/icons/calendarIcon.svg";
 import EditTaskIcon from "/public/assets/icons/editTaskIcon.svg";
 import DeleteTaskIcon from "/public/assets/icons/deleteTaskIcon.svg";
 import { useState } from "react";
 import { formatDate } from "@/utils";
+import api from "@/api/tasksApi";
 
 type TaskProps = {
+  id: number;
   name: string;
   due_date: string;
+  completed: boolean;
 };
 
 type TaskComponentProps = {
@@ -18,6 +20,19 @@ type TaskComponentProps = {
 export default function Task({ task }: TaskComponentProps) {
   const [showExtraActions, setShowExtraIcons] = useState<boolean>(false);
   const formattedDate = formatDate(task.due_date);
+  const [taskData, setTaskData] = useState<TaskProps>(task);
+
+  const handleTaskChecking = async () => {
+    await api
+      .patch(`/tasks/${task.id}/`, {
+        completed: !task.completed,
+      })
+      .then((success) => {
+        setTaskData((prevState) => {
+          return { ...prevState, completed: !taskData.completed };
+        });
+      });
+  };
 
   return (
     <div
@@ -26,8 +41,8 @@ export default function Task({ task }: TaskComponentProps) {
       onMouseLeave={() => setShowExtraIcons(false)}
     >
       <div className={styles.leftItems}>
-        <div className={styles.taskCheck}></div>
-        {task.name}
+        <div className={styles.taskCheck} onClick={handleTaskChecking}></div>
+        {taskData.completed ? <s>{task.name}</s> : <span>{task.name}</span>}
       </div>
       <div className={styles.rightItems}>
         {showExtraActions && (

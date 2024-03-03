@@ -13,6 +13,7 @@ export default function AddTaskPage() {
       .post("/tasks/", {
         name: nameRef.current?.value,
         due_date: dueDateRef.current?.value,
+        completed: false,
       })
       .then((success) => {
         router.push("/");
