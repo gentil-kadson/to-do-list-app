@@ -45,3 +45,11 @@
   filter: brightness(0) saturate(100%) invert(96%) sepia(66%) saturate(0%)
     hue-rotate(179deg) brightness(111%) contrast(100%);
 }
+
+.tasksContainer {
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

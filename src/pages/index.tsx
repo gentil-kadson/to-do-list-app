@@ -26,9 +26,11 @@ export default function Home() {
           </button>
         </Link>
       </div>
-      <Task />
-      <Task />
-      <Task />
+      <div className={styles.tasksContainer}>
+        <Task />
+        <Task />
+        <Task />
+      </div>
     </main>
   );
 }
