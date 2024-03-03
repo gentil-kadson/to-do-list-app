@@ -2,6 +2,7 @@ import styles from "./Task.module.css";
 import Image from "next/image";
 import EditTaskIcon from "/public/assets/icons/editTaskIcon.svg";
 import DeleteTaskIcon from "/public/assets/icons/deleteTaskIcon.svg";
+import CompletedTaskIcon from "/public/assets/icons/completedTaskIcon.svg";
 import { useState } from "react";
 import { formatDate } from "@/utils";
 import api from "@/api/tasksApi";
@@ -25,7 +26,7 @@ export default function Task({ task }: TaskComponentProps) {
   const handleTaskChecking = async () => {
     await api
       .patch(`/tasks/${task.id}/`, {
-        completed: !task.completed,
+        completed: !taskData.completed,
       })
       .then((success) => {
         setTaskData((prevState) => {
@@ -41,7 +42,19 @@ export default function Task({ task }: TaskComponentProps) {
       onMouseLeave={() => setShowExtraIcons(false)}
     >
       <div className={styles.leftItems}>
-        <div className={styles.taskCheck} onClick={handleTaskChecking}></div>
+        {taskData.completed ? (
+          <Image
+            className={styles.checkedTask}
+            src={CompletedTaskIcon}
+            width={48}
+            height={48}
+            alt="Círculo marcado"
+            onClick={handleTaskChecking}
+          />
+        ) : (
+          <div className={styles.taskCheck} onClick={handleTaskChecking}></div>
+        )}
+
         {taskData.completed ? <s>{task.name}</s> : <span>{task.name}</span>}
       </div>
       <div className={styles.rightItems}>

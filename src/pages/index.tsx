@@ -6,6 +6,7 @@ import Task from "@/components/Task";
 import api from "@/api/tasksApi";
 import Alert from "@/components/Alert";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 type TaskProps = {
   id: number;
@@ -21,6 +22,7 @@ type HomeProps = {
 export default function Home({ tasks }: HomeProps) {
   const [searchText, setSearchText] = useState<string>("");
   const [tasksData, setTasksData] = useState<TaskProps[]>(tasks);
+  const router = useRouter();
 
   useEffect(() => {
     if (searchText.length !== 0) {
@@ -35,7 +37,6 @@ export default function Home({ tasks }: HomeProps) {
 
   return (
     <>
-      <Alert />
       <main className={styles.main}>
         <div className={styles.inputContainer}>
           <input
