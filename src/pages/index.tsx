@@ -4,6 +4,7 @@ import AddTaskIcon from "/public/assets/icons/addTaskIcon.svg";
 import Link from "next/link";
 import Task from "@/components/Task";
 import api from "@/api/tasksApi";
+import { useState, useEffect } from "react";
 
 type TaskProps = {
   name: string;
@@ -15,6 +16,20 @@ type HomeProps = {
 };
 
 export default function Home({ tasks }: HomeProps) {
+  const [searchText, setSearchText] = useState<string>("");
+  const [tasksData, setTasksData] = useState<TaskProps[]>(tasks);
+
+  useEffect(() => {
+    if (searchText.length !== 0) {
+      const filteredTasks = tasks.filter((task) => {
+        return task.name.includes(searchText);
+      });
+      setTasksData(filteredTasks);
+    } else {
+      setTasksData(tasks);
+    }
+  }, [searchText]);
+
   return (
     <main className={styles.main}>
       <div className={styles.inputContainer}>
@@ -23,6 +38,7 @@ export default function Home({ tasks }: HomeProps) {
           type="text"
           name="search-task"
           id="search-task"
+          onChange={(event) => setSearchText(event.target.value)}
         />
         <Link href="/add-task">
           <button className={styles.searchButton}>
@@ -37,7 +53,7 @@ export default function Home({ tasks }: HomeProps) {
         </Link>
       </div>
       <div className={styles.tasksContainer}>
-        {tasks.map((task: TaskProps) => {
+        {tasksData.map((task: TaskProps) => {
           return <Task task={task} />;
         })}
       </div>
