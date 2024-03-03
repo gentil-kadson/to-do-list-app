@@ -6,7 +6,6 @@ import Task from "@/components/Task";
 import api from "@/api/tasksApi";
 import Alert from "@/components/Alert";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 type TaskProps = {
   id: number;
@@ -17,12 +16,13 @@ type TaskProps = {
 
 type HomeProps = {
   tasks: TaskProps[];
+  alertData?: { message: string; screenTime: number };
 };
 
-export default function Home({ tasks }: HomeProps) {
+export default function Home({ tasks, alertData }: HomeProps) {
   const [searchText, setSearchText] = useState<string>("");
   const [tasksData, setTasksData] = useState<TaskProps[]>(tasks);
-  const router = useRouter();
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   useEffect(() => {
     if (searchText.length !== 0) {
@@ -35,8 +35,18 @@ export default function Home({ tasks }: HomeProps) {
     }
   }, [searchText]);
 
+  useEffect(() => {
+    if (alertData) {
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, alertData.screenTime);
+    }
+  }, []);
+
   return (
     <>
+      {alertData && showAlert && <Alert message={alertData.message} />}
       <main className={styles.main}>
         <div className={styles.inputContainer}>
           <input
@@ -68,7 +78,16 @@ export default function Home({ tasks }: HomeProps) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: any) {
   const { data } = await api.get("/tasks");
+  if (context.req.headers.referer.includes("add-task")) {
+    const alertData = {
+      message: "Tarefa criada com sucesso",
+      screenTime: 3000,
+    };
+
+    return { props: { tasks: data, alertData } };
+  }
+
   return { props: { tasks: data } };
 }
