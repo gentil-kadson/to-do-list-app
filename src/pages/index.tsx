@@ -28,10 +28,15 @@ export default function Home() {
         </Link>
       </div>
       <div className={styles.tasksContainer}>
-        <Task />
-        <Task />
-        <Task />
+        {/* {tasks.map((task: TaskProps) => {
+          return <Task />;
+        })} */}
       </div>
     </main>
   );
+}
+
+export async function getServerSideProps() {
+  const { data } = await api.get("/tasks");
+  return { props: { tasks: data } };
 }
