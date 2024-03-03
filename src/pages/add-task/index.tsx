@@ -1,6 +1,18 @@
 import styles from "./AddTask.module.css";
+import { useRef } from "react";
+import api from "@/api/tasksApi";
 
 export default function AddTaskPage() {
+  const nameRef = useRef<HTMLInputElement>(null);
+  const dueDateRef = useRef<HTMLInputElement>(null);
+
+  const handleRegisterTask = () => {
+    api.post("/tasks/", {
+      name: nameRef.current?.value,
+      due_date: dueDateRef.current?.value,
+    });
+  };
+
   return (
     <main className={styles.main}>
       <h1>Adicionar Tarefa</h1>
@@ -11,6 +23,7 @@ export default function AddTaskPage() {
               Nome da Tarefa
             </label>
             <input
+              ref={nameRef}
               className={styles.input}
               type="text"
               name="task-name"
@@ -22,6 +35,7 @@ export default function AddTaskPage() {
               Prazo
             </label>
             <input
+              ref={dueDateRef}
               className={styles.input}
               type="date"
               name="due-date"
@@ -29,7 +43,9 @@ export default function AddTaskPage() {
             />
           </div>
         </div>
-        <button className={styles.addTaskButton}>Adicionar Tarefa</button>
+        <button onClick={handleRegisterTask} className={styles.addTaskButton}>
+          Adicionar Tarefa
+        </button>
       </section>
     </main>
   );
