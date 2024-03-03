@@ -5,7 +5,16 @@ import Link from "next/link";
 import Task from "@/components/Task";
 import api from "@/api/tasksApi";
 
-export default function Home() {
+type TaskProps = {
+  name: string;
+  due_date: string;
+};
+
+type HomeProps = {
+  tasks: TaskProps[];
+};
+
+export default function Home({ tasks }: HomeProps) {
   return (
     <main className={styles.main}>
       <div className={styles.inputContainer}>
@@ -28,9 +37,9 @@ export default function Home() {
         </Link>
       </div>
       <div className={styles.tasksContainer}>
-        {/* {tasks.map((task: TaskProps) => {
-          return <Task />;
-        })} */}
+        {tasks.map((task: TaskProps) => {
+          return <Task task={task} />;
+        })}
       </div>
     </main>
   );

@@ -5,7 +5,16 @@ import EditTaskIcon from "/public/assets/icons/editTaskIcon.svg";
 import DeleteTaskIcon from "/public/assets/icons/deleteTaskIcon.svg";
 import { useState } from "react";
 
-export default function Task() {
+type TaskProps = {
+  name: string;
+  due_date: string;
+};
+
+type TaskComponentProps = {
+  task: TaskProps;
+};
+
+export default function Task({ task }: TaskComponentProps) {
   const [showExtraActions, setShowExtraIcons] = useState<boolean>(false);
 
   return (
@@ -15,7 +24,8 @@ export default function Task() {
       onMouseLeave={() => setShowExtraIcons(false)}
     >
       <div className={styles.leftItems}>
-        <div className={styles.taskCheck}></div> nome
+        <div className={styles.taskCheck}></div>
+        {task.name}
       </div>
       <div className={styles.rightItems}>
         {showExtraActions && (
