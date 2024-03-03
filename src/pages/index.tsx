@@ -3,7 +3,7 @@ import styles from "@/styles/Home.module.css";
 import AddTaskIcon from "/public/assets/icons/addTaskIcon.svg";
 import Link from "next/link";
 import Task from "@/components/Task";
-import Modal from "@/components/Modal";
+import api from "@/api/tasksApi";
 
 export default function Home() {
   return (
