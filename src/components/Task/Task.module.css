@@ -1,0 +1,30 @@
+.taskContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.75rem;
+  border-radius: 0.625rem;
+  font-size: 1.2rem;
+  height: 4.5rem;
+
+  background-color: #292828;
+}
+
+.taskContainer:hover,
+.taskCheck:hover {
+  cursor: pointer;
+}
+
+.leftItems {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.taskCheck {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 2px solid #d22b2b;
+}
