@@ -4,6 +4,7 @@ import CalendarIcon from "/public/assets/icons/calendarIcon.svg";
 import EditTaskIcon from "/public/assets/icons/editTaskIcon.svg";
 import DeleteTaskIcon from "/public/assets/icons/deleteTaskIcon.svg";
 import { useState } from "react";
+import { formatDate } from "@/utils";
 
 type TaskProps = {
   name: string;
@@ -16,6 +17,7 @@ type TaskComponentProps = {
 
 export default function Task({ task }: TaskComponentProps) {
   const [showExtraActions, setShowExtraIcons] = useState<boolean>(false);
+  const formattedDate = formatDate(task.due_date);
 
   return (
     <div
@@ -46,14 +48,7 @@ export default function Task({ task }: TaskComponentProps) {
             />
           </>
         )}
-        <Image
-          src={CalendarIcon}
-          width={30}
-          height={30}
-          alt="Ícone de calendário"
-          className={styles.whiteIcon}
-        />{" "}
-        12 Jul. 2024
+        {formattedDate}
       </div>
     </div>
   );
