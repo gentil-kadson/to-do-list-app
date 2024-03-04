@@ -23,7 +23,7 @@ type TaskComponentProps = {
 
 export default function Task({ task, setTasksData }: TaskComponentProps) {
   const [showExtraActions, setShowExtraIcons] = useState<boolean>(false);
-  const formattedDate = formatDate(task.due_date);
+  const formattedDate = task.due_date ? formatDate(task.due_date) : "";
   const [taskData, setTaskData] = useState<TaskProps>(task);
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -94,7 +94,7 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
               />
             </>
           )}
-          {formattedDate}
+          {formattedDate && formattedDate}
         </div>
       </div>
       {showModal && (

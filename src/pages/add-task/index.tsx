@@ -9,15 +9,26 @@ export default function AddTaskPage() {
   const router = useRouter();
 
   const handleRegisterTask = () => {
-    api
-      .post("/tasks/", {
-        name: nameRef.current?.value,
-        due_date: dueDateRef.current?.value,
-        completed: false,
-      })
-      .then((success) => {
-        router.push("/");
-      });
+    if (dueDateRef.current?.value) {
+      api
+        .post("/tasks/", {
+          name: nameRef.current?.value,
+          due_date: dueDateRef.current?.value,
+          completed: false,
+        })
+        .then((success) => {
+          router.push("/");
+        });
+    } else {
+      api
+        .post("/tasks/", {
+          name: nameRef.current?.value,
+          completed: false,
+        })
+        .then((success) => {
+          router.push("/");
+        });
+    }
   };
 
   return (
