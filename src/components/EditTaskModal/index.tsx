@@ -1,5 +1,6 @@
 import styles from "./EditTaskModal.module.css";
 import { useEffect, useRef, useState } from "react";
+import api from "@/api/tasksApi";
 
 type TaskProps = {
   id: number;
@@ -17,6 +18,8 @@ export default function EditTaskModal({ show, task }: EditTaskModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [taskNameEdit, setTaskNameEdit] = useState<string>(task.name);
   const [dueDateEdit, setDueDateEdit] = useState<string>(task.due_date);
+
+  const handleTaskEdit = () => {};
 
   useEffect(() => {
     if (show) {
@@ -54,7 +57,9 @@ export default function EditTaskModal({ show, task }: EditTaskModalProps) {
           onChange={(event) => setDueDateEdit(event.target.value)}
         />
       </div>
-      <button className={styles.saveButton}>Salvar</button>
+      <button className={styles.saveButton} onClick={handleTaskEdit}>
+        Salvar
+      </button>
     </dialog>
   );
 }
