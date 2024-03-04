@@ -1,6 +1,5 @@
 import styles from "./Modal.module.css";
 import { useRef, useEffect } from "react";
-import { useRouter } from "next/router";
 
 type ModalProps = {
   show: boolean;
@@ -24,11 +23,18 @@ export default function Modal({
   }, [show, dialogRef.current]);
 
   return (
-    <dialog ref={dialogRef}>
+    <dialog className={styles.dialog} ref={dialogRef}>
       <h1>Tem certeza que deseja excluir a tarefa?</h1>
-      <div>
-        <button onClick={handleTaskDeletion}>Sim</button>
-        <button onClick={() => setShowModal(false)}>Não</button>
+      <div className={styles.buttonsContainer}>
+        <button
+          className={`${styles.button} ${styles.deleteTask}`}
+          onClick={handleTaskDeletion}
+        >
+          Sim
+        </button>
+        <button className={styles.button} onClick={() => setShowModal(false)}>
+          Não
+        </button>
       </div>
     </dialog>
   );

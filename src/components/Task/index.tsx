@@ -27,8 +27,8 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
   const [taskData, setTaskData] = useState<TaskProps>(task);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const handleTaskChecking = async () => {
-    await api
+  const handleTaskChecking = () => {
+    api
       .patch(`/tasks/${task.id}/`, {
         completed: !taskData.completed,
       })
@@ -39,7 +39,7 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
       });
   };
 
-  const handleTaskDeletion = async () => {
+  const handleTaskDeletion = () => {
     api.delete(`/tasks/${task.id}/`).then((response) => {
       setShowModal(false);
       api.get("/tasks/").then((updatedTasks) => {
@@ -97,11 +97,13 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
           {formattedDate}
         </div>
       </div>
-      <Modal
-        show={showModal}
-        setShowModal={setShowModal}
-        handleTaskDeletion={handleTaskDeletion}
-      />
+      {showModal && (
+        <Modal
+          show={showModal}
+          setShowModal={setShowModal}
+          handleTaskDeletion={handleTaskDeletion}
+        />
+      )}
     </>
   );
 }

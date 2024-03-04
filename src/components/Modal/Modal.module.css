@@ -1,0 +1,35 @@
+.dialog {
+  height: 300px;
+  width: 500px;
+  background: #252525;
+
+  border-radius: 15px;
+  border: none;
+  padding: 3rem;
+
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.button {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteTask {
+  background-color: #d22b2b;
+  color: #fff;
+}
