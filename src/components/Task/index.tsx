@@ -7,7 +7,7 @@ import { useState } from "react";
 import { formatDate } from "@/utils";
 import api from "@/api/tasksApi";
 import Modal from "../Modal";
-import Alert from "../Alert";
+import EditTaskModal from "../EditTaskModal";
 
 type TaskProps = {
   id: number;
@@ -26,6 +26,9 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
   const formattedDate = task.due_date ? formatDate(task.due_date) : "";
   const [taskData, setTaskData] = useState<TaskProps>(task);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+
+  const handleTaskEditing = () => {};
 
   const handleTaskChecking = () => {
     api
@@ -83,6 +86,7 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
                 height={30}
                 alt="ícone de edição"
                 className={styles.actionableWhiteIcon}
+                onClick={() => setShowEditModal(true)}
               />
               <Image
                 src={DeleteTaskIcon}
@@ -104,6 +108,7 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
           handleTaskDeletion={handleTaskDeletion}
         />
       )}
+      {showEditModal && <EditTaskModal show={showEditModal} />}
     </>
   );
 }
