@@ -7,6 +7,7 @@ import { useState } from "react";
 import { formatDate } from "@/utils";
 import api from "@/api/tasksApi";
 import Modal from "../Modal";
+import Alert from "../Alert";
 
 type TaskProps = {
   id: number;
@@ -17,9 +18,10 @@ type TaskProps = {
 
 type TaskComponentProps = {
   task: TaskProps;
+  setTasksData: (updatedTasks: TaskProps[]) => void;
 };
 
-export default function Task({ task }: TaskComponentProps) {
+export default function Task({ task, setTasksData }: TaskComponentProps) {
   const [showExtraActions, setShowExtraIcons] = useState<boolean>(false);
   const formattedDate = formatDate(task.due_date);
   const [taskData, setTaskData] = useState<TaskProps>(task);
@@ -35,6 +37,15 @@ export default function Task({ task }: TaskComponentProps) {
           return { ...prevState, completed: !taskData.completed };
         });
       });
+  };
+
+  const handleTaskDeletion = async () => {
+    api.delete(`/tasks/${task.id}/`).then((response) => {
+      setShowModal(false);
+      api.get("/tasks/").then((updatedTasks) => {
+        setTasksData(updatedTasks.data);
+      });
+    });
   };
 
   return (
@@ -86,7 +97,11 @@ export default function Task({ task }: TaskComponentProps) {
           {formattedDate}
         </div>
       </div>
-      <Modal show={showModal} setShowModal={setShowModal} />
+      <Modal
+        show={showModal}
+        setShowModal={setShowModal}
+        handleTaskDeletion={handleTaskDeletion}
+      />
     </>
   );
 }

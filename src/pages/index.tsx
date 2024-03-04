@@ -71,7 +71,9 @@ export default function Home({ tasks, alertData }: HomeProps) {
         </div>
         <div className={styles.tasksContainer}>
           {tasksData.map((task: TaskProps) => {
-            return <Task task={task} key={task.id} />;
+            return (
+              <Task task={task} key={task.id} setTasksData={setTasksData} />
+            );
           })}
         </div>
       </main>
