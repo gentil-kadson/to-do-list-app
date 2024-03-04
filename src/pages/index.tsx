@@ -80,7 +80,7 @@ export default function Home({ tasks, alertData }: HomeProps) {
 
 export async function getServerSideProps(context: any) {
   const { data } = await api.get("/tasks");
-  if (context.req.headers.referer.includes("add-task")) {
+  if (context.req.headers.referer?.includes("add-task")) {
     const alertData = {
       message: "Tarefa criada com sucesso",
       screenTime: 3000,
