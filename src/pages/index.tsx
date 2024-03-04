@@ -6,8 +6,10 @@ import Task from "@/components/Task";
 import api from "@/api/tasksApi";
 
 type TaskProps = {
+  id: number;
   name: string;
   due_date: string;
+  completed: boolean;
 };
 
 type HomeProps = {
@@ -38,7 +40,7 @@ export default function Home({ tasks }: HomeProps) {
       </div>
       <div className={styles.tasksContainer}>
         {tasks.map((task: TaskProps) => {
-          return <Task task={task} />;
+          return <Task task={task} key={task.id} />;
         })}
       </div>
     </main>
