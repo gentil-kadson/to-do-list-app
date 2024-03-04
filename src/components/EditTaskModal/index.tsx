@@ -1,6 +1,7 @@
 import styles from "./EditTaskModal.module.css";
 import { useEffect, useRef, useState } from "react";
 import api from "@/api/tasksApi";
+import Alert from "../Alert";
 
 type TaskProps = {
   id: number;
@@ -25,9 +26,10 @@ export default function EditTaskModal({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [taskNameEdit, setTaskNameEdit] = useState<string>(task.name);
   const [dueDateEdit, setDueDateEdit] = useState<string>(task.due_date);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const handleTaskEdit = () => {
-    if (dueDateEdit.length === 0) {
+    if (dueDateEdit && dueDateEdit.length === 0) {
       api
         .patch(`/tasks/${task.id}/`, {
           name: taskNameEdit,
@@ -38,6 +40,12 @@ export default function EditTaskModal({
             setTasksData(response.data);
             setShow(false);
           });
+        })
+        .catch((error) => {
+          setShowAlert(true);
+          setTimeout(() => {
+            setShowAlert(false);
+          }, 3000);
         });
     } else {
       api
@@ -50,6 +58,12 @@ export default function EditTaskModal({
             setTasksData(response.data);
             setShow(false);
           });
+        })
+        .catch((error) => {
+          setShowAlert(true);
+          setTimeout(() => {
+            setShowAlert(false);
+          }, 3000);
         });
     }
   };
@@ -63,36 +77,39 @@ export default function EditTaskModal({
   }, [show]);
 
   return (
-    <dialog className={styles.dialog} ref={dialogRef}>
-      <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor="task-name-edit">
-          Nome
-        </label>
-        <input
-          className={styles.taskName}
-          type="text"
-          name="task-name-edit"
-          id="task-name-edit"
-          value={taskNameEdit}
-          onChange={(event) => setTaskNameEdit(event.target.value)}
-        />
-      </div>
-      <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor="due-date-edit">
-          Data
-        </label>
-        <input
-          className={styles.dueDate}
-          type="date"
-          name="due-date-edit"
-          id="due-date-edit"
-          value={dueDateEdit ? dueDateEdit : ""}
-          onChange={(event) => setDueDateEdit(event.target.value)}
-        />
-      </div>
-      <button className={styles.saveButton} onClick={handleTaskEdit}>
-        Salvar
-      </button>
-    </dialog>
+    <>
+      {showAlert && <Alert message="O nome da tarefa é obrigatório" />}
+      <dialog className={styles.dialog} ref={dialogRef}>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="task-name-edit">
+            Nome
+          </label>
+          <input
+            className={styles.taskName}
+            type="text"
+            name="task-name-edit"
+            id="task-name-edit"
+            value={taskNameEdit}
+            onChange={(event) => setTaskNameEdit(event.target.value)}
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="due-date-edit">
+            Data
+          </label>
+          <input
+            className={styles.dueDate}
+            type="date"
+            name="due-date-edit"
+            id="due-date-edit"
+            value={dueDateEdit ? dueDateEdit : ""}
+            onChange={(event) => setDueDateEdit(event.target.value)}
+          />
+        </div>
+        <button className={styles.saveButton} onClick={handleTaskEdit}>
+          Salvar
+        </button>
+      </dialog>
+    </>
   );
 }
