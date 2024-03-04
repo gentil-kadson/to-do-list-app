@@ -1,0 +1,65 @@
+.dialog {
+  width: 1000px;
+  border: none;
+
+  border-radius: 15px;
+  background-color: #202020;
+  color: #fff;
+  padding: 2rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog:focus,
+.taskName:focus,
+.dueDate:focus {
+  outline: 0;
+}
+
+.taskName {
+  background-color: #303030;
+  border: none;
+  border-radius: 10px;
+  width: 400px;
+  font-size: 1.3rem;
+  padding: 1rem;
+  color: #fff;
+}
+
+.saveButton {
+  width: 200px;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+
+  background-color: #d22b2b;
+  border: none;
+  color: #fff;
+}
+
+.dueDate {
+  background-color: #303030;
+  border: none;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  padding: 1rem;
+
+  color: #fff;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 1.3rem;
+  font-weight: bold;
+}

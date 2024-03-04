@@ -108,7 +108,7 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
           handleTaskDeletion={handleTaskDeletion}
         />
       )}
-      {showEditModal && <EditTaskModal show={showEditModal} />}
+      {showEditModal && <EditTaskModal show={showEditModal} task={task} />}
     </>
   );
 }
