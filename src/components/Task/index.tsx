@@ -28,8 +28,6 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
-  const handleTaskEditing = () => {};
-
   const handleTaskChecking = () => {
     api
       .patch(`/tasks/${task.id}/`, {
@@ -108,7 +106,14 @@ export default function Task({ task, setTasksData }: TaskComponentProps) {
           handleTaskDeletion={handleTaskDeletion}
         />
       )}
-      {showEditModal && <EditTaskModal show={showEditModal} task={task} />}
+      {showEditModal && (
+        <EditTaskModal
+          show={showEditModal}
+          setShow={setShowEditModal}
+          task={task}
+          setTasksData={setTasksData}
+        />
+      )}
     </>
   );
 }

@@ -12,14 +12,47 @@ type TaskProps = {
 type EditTaskModalProps = {
   show: boolean;
   task: TaskProps;
+  setShow: (show: boolean) => void;
+  setTasksData: (tasks: TaskProps[]) => void;
 };
 
-export default function EditTaskModal({ show, task }: EditTaskModalProps) {
+export default function EditTaskModal({
+  show,
+  task,
+  setShow,
+  setTasksData,
+}: EditTaskModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [taskNameEdit, setTaskNameEdit] = useState<string>(task.name);
   const [dueDateEdit, setDueDateEdit] = useState<string>(task.due_date);
 
-  const handleTaskEdit = () => {};
+  const handleTaskEdit = () => {
+    if (dueDateEdit.length === 0) {
+      api
+        .patch(`/tasks/${task.id}/`, {
+          name: taskNameEdit,
+          due_date: null,
+        })
+        .then((success) => {
+          api.get("/tasks/").then((response) => {
+            setTasksData(response.data);
+            setShow(false);
+          });
+        });
+    } else {
+      api
+        .patch(`/tasks/${task.id}/`, {
+          name: taskNameEdit,
+          due_date: dueDateEdit,
+        })
+        .then((success) => {
+          api.get("/tasks/").then((response) => {
+            setTasksData(response.data);
+            setShow(false);
+          });
+        });
+    }
+  };
 
   useEffect(() => {
     if (show) {
