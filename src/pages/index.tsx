@@ -26,12 +26,14 @@ export default function Home({ tasks, alertData }: HomeProps) {
 
   useEffect(() => {
     if (searchText.length !== 0) {
-      const filteredTasks = tasks.filter((task) => {
+      const filteredTasks = tasksData.filter((task) => {
         return task.name.includes(searchText);
       });
       setTasksData(filteredTasks);
     } else {
-      setTasksData(tasks);
+      api.get("/tasks/").then((response) => {
+        setTasksData(response.data);
+      });
     }
   }, [searchText]);
 
