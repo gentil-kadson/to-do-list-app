@@ -6,6 +6,7 @@ import CompletedTaskIcon from "/public/assets/icons/completedTaskIcon.svg";
 import { useState } from "react";
 import { formatDate } from "@/utils";
 import api from "@/api/tasksApi";
+import Modal from "../Modal";
 
 type TaskProps = {
   id: number;
@@ -22,6 +23,7 @@ export default function Task({ task }: TaskComponentProps) {
   const [showExtraActions, setShowExtraIcons] = useState<boolean>(false);
   const formattedDate = formatDate(task.due_date);
   const [taskData, setTaskData] = useState<TaskProps>(task);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleTaskChecking = async () => {
     await api
@@ -36,48 +38,55 @@ export default function Task({ task }: TaskComponentProps) {
   };
 
   return (
-    <div
-      className={styles.taskContainer}
-      onMouseEnter={() => setShowExtraIcons(true)}
-      onMouseLeave={() => setShowExtraIcons(false)}
-    >
-      <div className={styles.leftItems}>
-        {taskData.completed ? (
-          <Image
-            className={styles.checkedTask}
-            src={CompletedTaskIcon}
-            width={48}
-            height={48}
-            alt="Círculo marcado"
-            onClick={handleTaskChecking}
-          />
-        ) : (
-          <div className={styles.taskCheck} onClick={handleTaskChecking}></div>
-        )}
+    <>
+      <div
+        className={styles.taskContainer}
+        onMouseEnter={() => setShowExtraIcons(true)}
+        onMouseLeave={() => setShowExtraIcons(false)}
+      >
+        <div className={styles.leftItems}>
+          {taskData.completed ? (
+            <Image
+              className={styles.checkedTask}
+              src={CompletedTaskIcon}
+              width={48}
+              height={48}
+              alt="Círculo marcado"
+              onClick={handleTaskChecking}
+            />
+          ) : (
+            <div
+              className={styles.taskCheck}
+              onClick={handleTaskChecking}
+            ></div>
+          )}
 
-        {taskData.completed ? <s>{task.name}</s> : <span>{task.name}</span>}
+          {taskData.completed ? <s>{task.name}</s> : <span>{task.name}</span>}
+        </div>
+        <div className={styles.rightItems}>
+          {showExtraActions && (
+            <>
+              <Image
+                src={EditTaskIcon}
+                width={30}
+                height={30}
+                alt="ícone de edição"
+                className={styles.actionableWhiteIcon}
+              />
+              <Image
+                src={DeleteTaskIcon}
+                width={30}
+                height={30}
+                alt="Ícone de exclusão"
+                className={styles.actionableWhiteIcon}
+                onClick={() => setShowModal(true)}
+              />
+            </>
+          )}
+          {formattedDate}
+        </div>
       </div>
-      <div className={styles.rightItems}>
-        {showExtraActions && (
-          <>
-            <Image
-              src={EditTaskIcon}
-              width={30}
-              height={30}
-              alt="ícone de edição"
-              className={styles.actionableWhiteIcon}
-            />
-            <Image
-              src={DeleteTaskIcon}
-              width={30}
-              height={30}
-              alt="Ícone de exclusão"
-              className={styles.actionableWhiteIcon}
-            />
-          </>
-        )}
-        {formattedDate}
-      </div>
-    </div>
+      <Modal show={showModal} setShowModal={setShowModal} />
+    </>
   );
 }
