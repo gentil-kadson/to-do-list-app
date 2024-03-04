@@ -86,7 +86,7 @@ export default function EditTaskModal({
           type="date"
           name="due-date-edit"
           id="due-date-edit"
-          value={dueDateEdit}
+          value={dueDateEdit ? dueDateEdit : ""}
           onChange={(event) => setDueDateEdit(event.target.value)}
         />
       </div>
