@@ -25,11 +25,13 @@ export default function EditTaskModal({
 }: EditTaskModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [taskNameEdit, setTaskNameEdit] = useState<string>(task.name);
-  const [dueDateEdit, setDueDateEdit] = useState<string>(task.due_date);
+  const [dueDateEdit, setDueDateEdit] = useState<string>(
+    task.due_date ? task.due_date : ""
+  );
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const handleTaskEdit = () => {
-    if (dueDateEdit && dueDateEdit.length === 0) {
+    if (dueDateEdit.length === 0) {
       api
         .patch(`/tasks/${task.id}/`, {
           name: taskNameEdit,
